@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
   });
 
   const sheets = google.sheets({ version: "v4", auth });
-  const spreadsheetId = "YOUR_SHEET_ID"; // Replace with your actual Sheet ID
+  const spreadsheetId = "1n5E3KiSGpO0FO-F01Zqgk3DlQqp1dr8fOjqAe6fm2Bo";
 
   // Prepare the row data
   const row = [name, email, ...Object.values(rest)];
