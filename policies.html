@@ -35,7 +35,6 @@
       name="policyForm"
       method="POST"
       data-netlify="true"
-      netlify
     >
       <h2>Retreat Policies</h2>
       <p>
@@ -118,17 +117,5 @@
       if (val !== null) {
         document.getElementById(key).value = val;
       }
-    });
-
-    // On submit, show thank you and register another button, clear localStorage
-    document.getElementById('policyForm').addEventListener('submit', function(e) {
-      // Let Netlify handle actual submission
-      setTimeout(function() {
-        document.getElementById('policyForm').style.display = "none";
-        document.getElementById('thankYouMessage').style.display = "block";
-        // Clear all localStorage keys
-        keys.concat(["agreePolicy", "signature", "dateCompleted"]).forEach(k => localStorage.removeItem(k));
-      }, 250); // slight delay so Netlify can process
-    });
   </script>
 </body>
