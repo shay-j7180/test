@@ -5,9 +5,31 @@
   <title>Thank You!</title>
   <link rel="stylesheet" href="policies.css">
   <style>
-    body { text-align: center; padding: 3em; }
+    body {
+      text-align: center;
+      padding: 3em;
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+    }
+    .container {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin: 0 auto;
+      max-width: 400px;
+      padding: 2em 2em 2.5em 2em;
+    }
+    h2 {
+      margin-top: 0;
+      color: #1976d2;
+    }
+    p {
+      font-size: 1.15em;
+      color: #333;
+      margin-bottom: 2em;
+    }
     .register-another-btn {
-      margin-top: 1.5em;
+      display: inline-block;
       padding: 0.8em 2em;
       font-size: 1.1em;
       background: #1976d2;
@@ -15,13 +37,20 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 0.5em;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      transition: background 0.2s;
     }
-    .register-another-btn:hover { background: #115293; }
+    .register-another-btn:hover {
+      background: #115293;
+    }
   </style>
 </head>
 <body>
-  <h2>Thank you for registering!</h2>
-  <p>Your registration has been submitted.</p>
-  <button class="register-another-btn" onclick="window.location.href='index.html'">Register Another Person</button>
+  <div class="container">
+    <h2>Thank you for registering!</h2>
+    <p>Your registration has been submitted.</p>
+    <button class="register-another-btn" onclick="window.location.href='index.html'">Register Another Person</button>
+  </div>
 </body>
 </html>
