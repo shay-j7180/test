@@ -5,33 +5,44 @@ exports.handler = async (event, context) => {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  // Get form data from Netlify submission
-  const data = JSON.parse(event.body);
-  const { name, email, ...rest } = data; // Change this to match your form fields
+  try {
+    // Get form data from Netlify submission
+    const data = JSON.parse(event.body);
+    const { name, email, ...rest } = data; // Change this to match your form fields
 
-  // Load credentials from environment variable or a local file
-  const credentials = JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS); // Or require('./creds.json')
+    // Load credentials from environment variable or a local file
+    const credentials = JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS);
 
-  // Authenticate
-  const auth = new google.auth.GoogleAuth({
-    credentials,
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-  });
+    // Authenticate
+    const auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
 
-  const sheets = google.sheets({ version: "v4", auth });
-  const spreadsheetId = "1n5E3KiSGpO0FO-F01Zqgk3DlQqp1dr8fOjqAe6fm2Bo";
+    const sheets = google.sheets({ version: "v4", auth });
+    const spreadsheetId = "1n5E3KiSGpO0FO-F01Zqgk3DlQqp1dr8fOjqAe6fm2Bo";
 
-  // Prepare the row data
-  const row = [name, email, ...Object.values(rest)];
-  await sheets.spreadsheets.values.append({
-    spreadsheetId,
-    range: "Sheet1!A1", // Adjust to your sheet/range
-    valueInputOption: "RAW",
-    requestBody: { values: [row] },
-  });
+    // Prepare the row data
+    const row = [name, email, ...Object.values(rest)];
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range: "Sheet1!A1", // Adjust to your sheet/range
+      valueInputOption: "RAW",
+      requestBody: { values: [row] },
+    });
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: "Success" }),
-  };
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "Success" }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: "Submission failed",
+        error: error.message,
+        stack: error.stack,
+      }),
+    };
+  }
 };
