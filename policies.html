@@ -4,29 +4,6 @@
   <meta charset="UTF-8">
   <title>Retreat Policies</title>
   <link rel="stylesheet" href="policies.css">
-  <style>
-    #thankYouMessage {
-      display: none;
-      margin: 32px 0;
-      padding: 2em;
-      background: #f3f3f3;
-      border-radius: 8px;
-      text-align: center;
-    }
-    .register-another-btn {
-      margin-top: 1.5em;
-      padding: 0.8em 2em;
-      font-size: 1.1em;
-      background: #1976d2;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .register-another-btn:hover {
-      background: #115293;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
@@ -34,6 +11,7 @@
       id="policyForm"
       name="policyForm"
       method="POST"
+      action="/thankyou.html"
       data-netlify="true"
     >
       <h2>Retreat Policies</h2>
@@ -96,12 +74,6 @@
         <button type="submit">Submit</button>
       </div>
     </form>
-    <!-- Thank you message and register another person button -->
-    <div id="thankYouMessage">
-      <h2>Thank you for registering!</h2>
-      <p>Your registration has been submitted.</p>
-      <button class="register-another-btn" onclick="window.location.href='index.html'">Register Another Person</button>
-    </div>
   </div>
   <script>
     // Fill hidden fields with values from localStorage before submit
@@ -117,5 +89,7 @@
       if (val !== null) {
         document.getElementById(key).value = val;
       }
+    });
   </script>
 </body>
+</html>
