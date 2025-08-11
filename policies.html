@@ -11,7 +11,7 @@
       id="policyForm"
       name="policyForm"
       method="POST"
-      action="/thankyou.html"
+      action="/.netlify/functions/submit-to-sheet"
       data-netlify="true"
     >
       <h2>Retreat Policies</h2>
@@ -88,6 +88,21 @@
       const val = localStorage.getItem(key);
       if (val !== null) {
         document.getElementById(key).value = val;
+      }
+    });
+
+    document.getElementById('policyForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data
+      });
+      if (response.ok) {
+        window.location.href = '/thankyou.html';
+      } else {
+        alert('Submission failed!');
       }
     });
   </script>
