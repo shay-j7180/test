@@ -6,14 +6,13 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Your original code here...
     // Get form data from Netlify submission
     const data = JSON.parse(event.body);
-    const { name, email, ...rest } = data; // Change this to match your form fields
+    const { name, email, ...rest } = data;
 
-    // Load credentials from environment variable or a local file
     const credentials = JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS);
 
-    // Authenticate
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
@@ -22,11 +21,10 @@ exports.handler = async (event, context) => {
     const sheets = google.sheets({ version: "v4", auth });
     const spreadsheetId = "1n5E3KiSGpO0FO-F01Zqgk3DlQqp1dr8fOjqAe6fm2Bo";
 
-    // Prepare the row data
     const row = [name, email, ...Object.values(rest)];
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: "Sheet1!A1", // Adjust to your sheet/range
+      range: "Sheet1!A1",
       valueInputOption: "RAW",
       requestBody: { values: [row] },
     });
@@ -36,6 +34,9 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ message: "Success" }),
     };
   } catch (error) {
+    // Log the error for debugging
+    console.error("Function error:", error);
+
     return {
       statusCode: 500,
       body: JSON.stringify({
